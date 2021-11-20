@@ -20,12 +20,10 @@ class Status:
         if self.client_s2:
             n = n + 1
         self.n = n + len(self.waiting_clients)
-        
 
-    def ClientArrives(self, t_a) -> Client:
+    def client_arrives(self, t_a) -> Client:
         order = CreateOrder()
         client = Client(order, t_a)
         self.waiting_clients.append(client)
         self.clients.append(client)
         return client
-
