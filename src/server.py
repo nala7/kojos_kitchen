@@ -1,22 +1,20 @@
 import sys
 from client import Client
-from utils import OrderType, SushiOrderTime, SandwichOrderTime
+from utils import OrderType, sushi_order_time, sandwich_order_time
 
 
 class Server:
     def __init__(self) -> None:
-        self.started_working = False
         self.clients_served = 0
         self.time = sys.maxsize
 
     def take_order(self, client: Client):
-        self.started_working = True
         self.clients_served = self.clients_served + 1
         # Handle order: set client.t_d
         if client.order_type == OrderType.sushi:
-            y = SushiOrderTime()
+            y = sushi_order_time()
         else:
-            y = SandwichOrderTime()
+            y = sandwich_order_time()
 
         self.time = self.time + y
         client.t_d = client.t_a + y

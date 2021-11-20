@@ -1,6 +1,6 @@
 from client import Client
 from server import Server
-from utils import CreateOrder
+from utils import create_order
 
 
 class Status:
@@ -22,8 +22,29 @@ class Status:
         self.n = n + len(self.waiting_clients)
 
     def client_arrives(self, t_a) -> Client:
-        order = CreateOrder()
+        order = create_order()
         client = Client(order, t_a)
         self.waiting_clients.append(client)
         self.clients.append(client)
         return client
+
+    def add_client_s1(self, client: Client):
+        self.s1.take_order(client)
+        self.client_s1 = client
+
+    def finish_with_client_s1(self):
+        self.client_s1 = None
+        self.s1.time = 1
+        self.update_count()
+
+    def add_client_s2(self, client: Client):
+        self.s2.take_order(client)
+        self.client_s2 = client
+
+    def finish_with_client_s2(self):
+        self.client_s2 = None
+        self.s2.time = 1
+        self.update_count()
+
+    def add_client_to_queque(self, client):
+        self.waiting_clients.append(client)

@@ -5,13 +5,12 @@ import math
 from enum import Enum
 
 
-
 class OrderType(Enum):
     sandwitch = 1
     sushi = 2
 
 
-def uniform_distibution(a : int, b : int) -> int: 
+def uniform_distibution(a: int, b: int) -> int:
     U = random.random()
     return a + (b - a) * U
 
@@ -26,9 +25,9 @@ def exponential_distribution(lamb) -> int:
     return x
 
 
-def CreateOrder():
-    U = random.random()
-    if U > 0.5:
+def create_order():
+    u = random.random()
+    if u > 0.5:
         return OrderType.sandwitch
     return OrderType.sushi
 
@@ -48,42 +47,41 @@ def test():
     print(times)
 
 
-def TimeToMinutes(t : int) -> int:
+def time_to_minutes(t: int) -> int:
     # start_hour = 1000
-    passed_hours = int(t/100) - 10
+    passed_hours = int(t / 100) - 10
     # print(passed_hours)
-    passed_minutes = t%100
+    passed_minutes = t % 100
     # print(passed_minutes)
     return passed_hours * 60 + passed_minutes
 
 
-
-def GenerateTime(is_peak_time : bool) -> int:
-    lamb = 0.5 if is_peak_time else 0.25
+def generate_time(t) -> int:
+    lamb = 0.5 if is_peak_time(t) else 0.25
     x = exponential_distribution(lamb)
-
-    return x, IsPeakTime(), IsClosed()
-
-
-def IsPeakTime(t : int) -> bool:
-    return (t >= 90 and t <= 210) or (t >= 300 and t<= 540)
+    return x
 
 
-def IsClosed(t):
+def is_peak_time(t: int) -> bool:
+    return (90 <= t <= 210) or (300 <= t <= 540)
+
+
+def is_closed(t):
     return t >= 660
 
 
-def SushiOrderTime():
+def sushi_order_time():
     x = uniform_distibution(5, 8)
     return x
 
 
-def SandwichOrderTime():
+def sandwich_order_time():
     x = uniform_distibution(3, 5)
-    return x    
+    return x
 
-print(1130, TimeToMinutes(1130))
-print(1330, TimeToMinutes(1330))
-print(1700, TimeToMinutes(1500))
-print(1900, TimeToMinutes(1900))
-print(2100, TimeToMinutes(2100))
+
+print(1130, time_to_minutes(1130))
+print(1330, time_to_minutes(1330))
+print(1700, time_to_minutes(1500))
+print(1900, time_to_minutes(1900))
+print(2100, time_to_minutes(2100))
