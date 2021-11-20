@@ -1,23 +1,22 @@
 import random
 import numpy as np
-import math
 
 from enum import Enum
 
 
 class OrderType(Enum):
-    sandwitch = 1
+    sandwich = 1
     sushi = 2
 
 
-def uniform_distibution(a: int, b: int) -> int:
-    U = random.random()
-    return a + (b - a) * U
+def uniform_distribution(a: int, b: int) -> float:
+    u = random.random()
+    return a + (b - a) * u
 
 
-def exponential_distribution(lamb) -> int:
+def exponential_distribution(lamb, a, b) -> float:
     # intervalo de minutos entre los arribos de los clientes
-    u = uniform_distibution(0, 15)
+    u = uniform_distribution(a, b)
     x = - (1 / lamb) * np.log(u)
     if x < 0:
         x = x * (-1)
@@ -58,8 +57,9 @@ def time_to_minutes(t: int) -> int:
 
 def generate_time(t) -> int:
     lamb = 0.5 if is_peak_time(t) else 0.25
-    x = exponential_distribution(lamb)
-    return x
+    # time between the arrival of two clients is set between 0 and 15 minutes
+    x = exponential_distribution(lamb, 0, 15)
+    return int(x)
 
 
 def is_peak_time(t: int) -> bool:
@@ -71,12 +71,12 @@ def is_closed(t):
 
 
 def sushi_order_time():
-    x = uniform_distibution(5, 8)
+    x = uniform_distribution(5, 8)
     return x
 
 
 def sandwich_order_time():
-    x = uniform_distibution(3, 5)
+    x = uniform_distribution(3, 5)
     return x
 
 
