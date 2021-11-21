@@ -9,6 +9,10 @@ class OrderType(Enum):
     sushi = 2
 
 
+class StoreScheduele(Enum):
+    closing_time = 660
+
+
 def uniform_distribution(a: int, b: int) -> float:
     u = random.random()
     return a + (b - a) * u
@@ -27,7 +31,7 @@ def exponential_distribution(lamb, a, b) -> float:
 def create_order():
     u = random.random()
     if u > 0.5:
-        return OrderType.sandwitch
+        return OrderType.sandwich
     return OrderType.sushi
 
 
@@ -42,16 +46,12 @@ def test():
             times[1] = times[1] + 1
         elif x < 15:
             times[2] = times[2] + 1
-        # print(x)
-    print(times)
 
 
 def time_to_minutes(t: int) -> int:
     # start_hour = 1000
     passed_hours = int(t / 100) - 10
-    # print(passed_hours)
     passed_minutes = t % 100
-    # print(passed_minutes)
     return passed_hours * 60 + passed_minutes
 
 
@@ -67,21 +67,14 @@ def is_peak_time(t: int) -> bool:
 
 
 def is_closed(t):
-    return t >= 660
+    return t >= StoreScheduele.closing_time.value
 
 
 def sushi_order_time():
     x = uniform_distribution(5, 8)
-    return x
+    return int(x)
 
 
 def sandwich_order_time():
     x = uniform_distribution(3, 5)
-    return x
-
-
-print(1130, time_to_minutes(1130))
-print(1330, time_to_minutes(1330))
-print(1700, time_to_minutes(1500))
-print(1900, time_to_minutes(1900))
-print(2100, time_to_minutes(2100))
+    return int(x)

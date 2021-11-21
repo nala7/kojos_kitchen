@@ -6,3 +6,8 @@ class Client:
         self.order_type = order_type
         self.t_a = t_a
         self.t_d: int
+        self.time_waited: int
+
+    def __str__(self):
+        text = f'Order: {self.order_type}, AT: {self.t_a}'
+        return text
