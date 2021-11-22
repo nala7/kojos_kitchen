@@ -118,3 +118,5 @@ Luego de analizar las simulaciones se ha llegado a la conclusión de que el dese
 en el horario pico. También se pudo observar que a mayor frecuencia de clientes (mayor lambda en la función de distibución exponencial) los porcentajes
 de mejora aumentan.
 
+
+- **Repositorio de Github**: https://github.com/nala7/kojos_kitchen.git
