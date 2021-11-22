@@ -80,6 +80,8 @@ def run(with_3_servers) -> Status:
 
 
 times_with_3_servers_was_better = 0
+clients_with_2_servers = []
+clients_with_3_servers = []
 for i in range(100):
     status_2_servers = run(False)
     time_exceded_with_2_servers = 0
@@ -93,6 +95,8 @@ for i in range(100):
         if c.time_waited >= 5:
             time_exceded_with_3_servers = time_exceded_with_2_servers + 1
 
+    clients_with_2_servers.append(time_exceded_with_2_servers)
+    clients_with_3_servers.append(time_exceded_with_3_servers)
     print("Clients that waited more that 5 minuted to be served with 2 chefs: ", time_exceded_with_2_servers)
     print("Clients that waited more that 5 minuted to be served with 3 chefs: ", time_exceded_with_3_servers)
 

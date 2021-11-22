@@ -67,11 +67,54 @@ Se utilizaron tres clases principales:
 **Status**: mantiene la lista de servidores que están trabajando, la lista de clientes esperando en 
 cola a ser atendidos y la lista de clientes que han salido de la tienda
       
-El algoritmo utilizado se encuentra en `main.py`. Este sigue las pautas de un sistema de atención con dos servidores en paralelo.
+El algoritmo utilizado se encuentra en `main.py`. Este sigue las pautas de un sistema de atención con 
+dos servidores en paralelo que se encuentra en el libro "Temas de Simulación". Se utilizó el siguente
+pseudo código para la implementación del algoritmo:
+
+```
+Inicialización
+    t = Na = C1 = C2 = 0
+    SS = (0)
+    Genera T0 y tA = T0, t1 = t2 = infinito
+
+Caso 1 SS = (n, i1, i2, ... , in) ^ tA = min(tA, t1, t2)
+        t = tA
+        NA = NA + 1
+        Genera Tt y tA = t + Tt
+        A(NA) = t
+        Si SS = (0) entonces SS = (1, NA, 0), genera Y1 y t1 = t + Y1
+        Si SS = (1, j, 0) entonces SS = (2, j, NA), genera Y2 y t2 = t + Y2
+        Si SS = (1, 0, j) entonces SS = (2, NA, j), genera Y1 y t1 = t + Y1
+        Si n > 1 entonces SS = (n + 1, i1, 12, ... , in, NA)
+        
+Caso 2 SS = (n, i1, i2, ... , in) ^ t1 < tA ^ t1 <= t2
+        t = t1
+        C1 = C1 + 1
+        D(i1) = t
+        Si n = 1 entonces SS = (0) y t1 = 1
+        Si n = 2 entonces SS = (1, 0, i2) y t1 = 1
+        Si n > 2 entonces SS = (n - 1, i3, i2, ... , in), genera Y1 y t1 = t + Y1
+        
+Caso 3 SS = (n, i1, i2, ... , in) ^ t2 < tA ^ t2 <= t1
+        t = t2
+        C2 = C2 + 1
+        D(i2) = t
+        Si n = 1 entonces SS = (0) y t2 = 1
+        Si n = 2 entonces SS = (1, 0, i2) y t2 = 1
+        Si n > 2 entonces SS = (n - 1, i2, i3, ... , in), genera Y2 y t2 = t + Y2
+```
+
 En un inicio se generan todos los clientes que llegarán al centro y se almacenan en una lista. 
 Se crea una lista con los dos servidores que se utilizaran en toda la simulación y se crea una instancia de la clase `Status`, el cual se utilizará
 para mantener actualizada la información del sistema. Este último será el encargado de mantener la lista de los clientes que se 
 encuentran en la tienda esperando ser atendidos y también la lista de los clientes que ya fueron atendidos.  
 
+Para la simulación de un tercer chef, se añade, a la lista de servidores, un tercer servidor durante los horarios picos. 
 
-- **Consideraciones obtenidas a partir de la ejecución de las simulaciones del problema:** 
+
+- **Consideraciones obtenidas a partir de la ejecución de las simulaciones del problema:**
+
+Luego de analizar las simulaciones se ha llegado a la conclusión de que el desempeño mejora entre un 30 y un 40 por ciento cuando se agrega un chef
+en el horario pico. También se pudo observar que a mayor frecuencia de clientes (mayor lambda en la función de distibución exponencial) los porcentajes
+de mejora aumentan.
+
